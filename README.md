@@ -1,4 +1,4 @@
-# docker-image
+# 🐋 docker-image
 
 > A utility crate for parsing Docker image references.
 

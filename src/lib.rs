@@ -1,4 +1,4 @@
-//! # docker-image
+//! # 🐋 docker-image
 //!
 //! A library for parsing and handling Docker image references in a structured way.
 //!
