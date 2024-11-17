@@ -146,9 +146,9 @@ impl DockerImage {
     /// ```
     /// use docker_image::DockerImage;
     ///
-    /// let image = DockerImage::parse("ubuntu@sha256:deadbeef1234567890abcdef1234567890abcdef1234567890abcdef1234").unwrap();
+    /// let image = DockerImage::parse("ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2").unwrap();
     /// assert_eq!(image.name, "ubuntu");
-    /// assert_eq!(image.digest, Some("sha256:deadbeef1234567890abcdef1234567890abcdef1234567890abcdef1234".to_string()));
+    /// assert_eq!(image.digest, Some("sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2".to_string()));
     /// ```
     pub fn parse(image_str: &str) -> Result<Self, DockerImageError> {
         Self::from_str(image_str)
@@ -371,7 +371,9 @@ mod tests {
 
     #[test]
     fn test_unicode_in_digest() {
-        let result = DockerImage::parse("nginx@sha256:deadbeef🚀1234567890abcdef1234567890abcdef1234567890abcdef1234");
+        let result = DockerImage::parse(
+            "nginx@sha256:deadbeef🚀1234567890abcdef1234567890abcdef1234567890abcdef1234",
+        );
         assert_eq!(result, Err(DockerImageError::InvalidFormat));
     }
 
