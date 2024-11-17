@@ -63,9 +63,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        rust: [1.56.0, stable, nightly]
         features: [ [ ], [ "--all-features" ],  [ "--no-default-features" ] ]
     steps:
       - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
       - name: Clippy
         run: cargo clippy ${{ join(matrix.features, ' ') }}
       - name: Build
