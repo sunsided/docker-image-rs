@@ -17,14 +17,14 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
     - **Digest**: Parses optional content digests in the form `@sha256:<64-character-digest>`.
 - Validation of Docker image references against Docker's official naming rules.
 - Support for the `Display` trait to reconstruct valid Docker image references from parsed components.
-- Designed for high performance and safety:
+- Designed for safety:
     - `#![no_std]` compatible for embedded and minimal environments (with `alloc` as a requirement).
     - `#![forbid(unsafe_code)]` ensures memory safety.
 
 ### Internal
 
-- Set Minimum Supported Rust Version (MSRV) to `1.56.0` and Rust Edition to `2021`.
-- Added CI pipeline for testing against `1.56.0`, `stable`, and `nightly` Rust versions.
+- Set Minimum Supported Rust Version (MSRV) to `1.65.0` and Rust Edition to `2021`.
+- Added CI pipeline for testing against `1.65.0`, `stable`, and `nightly` Rust versions.
 - Comprehensive unit tests for valid and invalid Docker image references, ensuring strict compliance with Docker naming conventions.
 - Provided examples and documentation in `README.md`.
 

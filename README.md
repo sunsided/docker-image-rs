@@ -21,7 +21,7 @@
 - Designed for safety:
     - `#![no_std]` compatible for embedded and minimal environments (however `alloc` remains a requirement).
     - `#![forbid(unsafe_code)]` ensures memory safety.
-- Minimum Supported Rust Version (MSRV): Rust 1.56.0
+- Minimum Supported Rust Version (MSRV): Rust 1.65.0
   - This is the earliest version of Rust required to use this library.
   - Note: The MSRV may increase in future releases due to updates in dependencies or library features.
 
@@ -100,7 +100,7 @@ fn it_works() {
 
 [safety-link]: https://github.com/rust-secure-code/safety-dance/
 
-[msrv-image]: https://img.shields.io/badge/rustc-1.56+-blue.svg
+[msrv-image]: https://img.shields.io/badge/rustc-1.65+-blue.svg
 
 [license-eupl-image]: https://img.shields.io/badge/license-EUPL_1.2-blue.svg
 

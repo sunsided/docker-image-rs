@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [1.56.0, stable, nightly]
+        rust: [1.65.0, stable, nightly]
         features: [ [ ], [ "--all-features" ],  [ "--no-default-features" ] ]
     steps:
       - uses: actions/checkout@v4
