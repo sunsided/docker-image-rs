@@ -71,6 +71,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ matrix.rust }}
+          components: clippy
       - name: Clippy
         run: cargo clippy ${{ join(matrix.features, ' ') }}
       - name: Build
