@@ -21,7 +21,7 @@
 - Designed for safety:
     - `#![no_std]` compatible for embedded and minimal environments (however `alloc` remains a requirement).
     - `#![forbid(unsafe_code)]` ensures memory safety.
-- Minimum Supported Rust Version (MSRV): Rust 1.65.0
+- Minimum Supported Rust Version (MSRV): Rust 1.81.0
   - This is the earliest version of Rust required to use this library.
   - Note: The MSRV may increase in future releases due to updates in dependencies or library features.
 

@@ -23,8 +23,8 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Internal
 
-- Set Minimum Supported Rust Version (MSRV) to `1.65.0` and Rust Edition to `2021`.
-- Added CI pipeline for testing against `1.65.0`, `stable`, and `nightly` Rust versions.
+- Set Minimum Supported Rust Version (MSRV) to `1.81.0` and Rust Edition to `2021`.
+- Added CI pipeline for testing against `1.81.0`, `stable`, and `nightly` Rust versions.
 - Comprehensive unit tests for valid and invalid Docker image references, ensuring strict compliance with Docker naming conventions.
 - Provided examples and documentation in `README.md`.
 
