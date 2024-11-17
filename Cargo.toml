@@ -1,0 +1,11 @@
+[package]
+name = "docker-image"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lazy_static = "1.5.0"
+regex = { version = "1.11.1", default-features = false, features = ["unicode-perl"] }
+
+[dev-dependencies]
+test-format = "0.1.1"
