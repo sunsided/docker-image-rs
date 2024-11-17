@@ -1,6 +1,14 @@
 [package]
 name = "docker-image"
 version = "0.1.0"
+description = "A simple, no_std-compatible Docker image reference parser with strict adherence to Docker's naming rules."
+authors = ["Markus Mayer"]
+homepage = "https://github.com/sunsided/docker-image-rs"
+repository = "https://github.com/sunsided/docker-image-rs"
+readme = "README.md"
+keywords = ["docker", "parsing", "containers", "validation", "images"]
+categories = ["algorithms", "parsing", "no-std"]
+license = "EUPL-1.2"
 edition = "2021"
 
 [dependencies]
