@@ -1,6 +1,6 @@
 [package]
 name = "docker-image"
-version = "0.2.0"
+version = "0.2.1"
 description = "A simple, no_std-compatible Docker image reference parser with strict adherence to Docker's naming rules."
 authors = ["Markus Mayer"]
 homepage = "https://github.com/sunsided/docker-image-rs"

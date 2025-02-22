@@ -138,6 +138,22 @@ impl FromStr for DockerImage {
     }
 }
 
+impl TryFrom<String> for DockerImage {
+    type Error = DockerImageError;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+
+impl TryFrom<&str> for DockerImage {
+    type Error = DockerImageError;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        value.parse()
+    }
+}
+
 impl DockerImage {
     /// Parses a Docker image string into its structured components.
     ///
@@ -160,7 +176,7 @@ impl DockerImage {
 impl serde::Serialize for DockerImage {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
-        S: serde::ser::Serializer
+        S: serde::ser::Serializer,
     {
         serializer.serialize_str(&self.to_string())
     }
@@ -170,12 +186,10 @@ impl serde::Serialize for DockerImage {
 impl<'de> serde::Deserialize<'de> for DockerImage {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
-        D: serde::de::Deserializer<'de>
+        D: serde::de::Deserializer<'de>,
     {
         let docker_image_str = <String as serde::Deserialize>::deserialize(deserializer)?;
-        docker_image_str
-            .parse()
-            .map_err(serde::de::Error::custom)
+        docker_image_str.parse().map_err(serde::de::Error::custom)
     }
 }
 
@@ -500,7 +514,6 @@ mod tests {
         );
     }
 
-
     #[test]
     #[cfg(feature = "serde-serialize")]
     fn test_serialize_dockerimage_to_json() {
@@ -511,7 +524,8 @@ mod tests {
             name: "library/image-name".to_string(),
             tag: Some("v1.0.0".to_string()),
             digest: Some(
-                "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234".to_string(),
+                "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234"
+                    .to_string(),
             ),
         };
 
@@ -538,7 +552,8 @@ mod tests {
                 name: "library/image-name".to_string(),
                 tag: Some("v1.0.0".to_string()),
                 digest: Some(
-                    "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234".to_string()
+                    "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234"
+                        .to_string()
                 ),
             }
         );

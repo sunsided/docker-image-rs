@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.  
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2025-02-22
+
+[0.2.1]: https://github.com/sunsided/docker-image-rs/releases/tag/v0.2.1
+
+### Added
+
+- Added explicit implementation of `TryFrom<&str>`.
+
+
 ## [0.2.0] - 2025-02-22
 
 [0.2.0]: https://github.com/sunsided/docker-image-rs/releases/tag/v0.2.0
