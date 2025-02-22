@@ -118,7 +118,7 @@ impl FromStr for DockerImage {
                 // language=regexp
                 r"^(?:(?P<registry>[a-z0-9]+(?:[._-][a-z0-9]+)*\.[a-z]{2,}(?::\d+)?)/)?(?P<name>[a-z0-9]+(?:[._-][a-z0-9]+)*(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*)(?::(?P<tag>[a-zA-Z0-9._-]+))?(?:@(?P<digest>[a-z0-9]+:[a-fA-F0-9]{64}))?$"
             )
-            .unwrap();
+            .expect("Invalid regular expression for Docker image format");
         }
 
         if let Some(captures) = DOCKER_IMAGE_REGEX.captures(s) {

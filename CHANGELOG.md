@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.  
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.2.0] - 2025-02-22
+
+[0.2.0]: https://github.com/sunsided/docker-image-rs/releases/tag/v0.2.0
 
 ### Added
 
 - Added support for `serde` serialization and deserialization via the `serde`, `serde-serialize` and `serde-deserialize` crate features.
+
+### Internal
+
+- Added fuzz testing.
 
 ## [0.1.0] - 2024-11-17
 
