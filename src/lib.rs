@@ -5,7 +5,7 @@
 //! Docker image references can include components like a registry, name, tag, and digest.
 //! This library parses valid Docker image strings into their respective components, with proper validation.
 
-#![no_std]
+#![cfg_attr(not(feature = "serde-deserialize"), no_std)]
 #![forbid(unsafe_code)]
 
 extern crate alloc;
@@ -115,6 +115,7 @@ impl FromStr for DockerImage {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         lazy_static! {
             static ref DOCKER_IMAGE_REGEX: Regex = Regex::new(
+                // language=regexp
                 r"^(?:(?P<registry>[a-z0-9]+(?:[._-][a-z0-9]+)*\.[a-z]{2,}(?::\d+)?)/)?(?P<name>[a-z0-9]+(?:[._-][a-z0-9]+)*(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*)(?::(?P<tag>[a-zA-Z0-9._-]+))?(?:@(?P<digest>[a-z0-9]+:[a-fA-F0-9]{64}))?$"
             )
             .unwrap();
@@ -152,6 +153,29 @@ impl DockerImage {
     /// ```
     pub fn parse(image_str: &str) -> Result<Self, DockerImageError> {
         Self::from_str(image_str)
+    }
+}
+
+#[cfg(feature = "serde-serialize")]
+impl serde::Serialize for DockerImage {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+#[cfg(feature = "serde-deserialize")]
+impl<'de> serde::Deserialize<'de> for DockerImage {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::de::Deserializer<'de>
+    {
+        let docker_image_str = <String as serde::Deserialize>::deserialize(deserializer)?;
+        docker_image_str
+            .parse()
+            .map_err(serde::de::Error::custom)
     }
 }
 
@@ -473,6 +497,50 @@ mod tests {
         assert_display_fmt!(
             image,
             "my-registry.local:5000/library/image-name:v1.0.0@sha256:deadbeef1234567890abcdef1234567890abcdef1234567890abcdef1234"
+        );
+    }
+
+
+    #[test]
+    #[cfg(feature = "serde-serialize")]
+    fn test_serialize_dockerimage_to_json() {
+        use serde_json;
+
+        let image = DockerImage {
+            registry: Some("my-registry.local:5000".to_string()),
+            name: "library/image-name".to_string(),
+            tag: Some("v1.0.0".to_string()),
+            digest: Some(
+                "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234".to_string(),
+            ),
+        };
+
+        let serialized = serde_json::to_string(&image).expect("Failed to serialize DockerImage");
+        assert_eq!(
+            serialized,
+            r#""my-registry.local:5000/library/image-name:v1.0.0@sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234""#
+        );
+    }
+
+    #[test]
+    #[cfg(feature = "serde-deserialize")]
+    fn test_deserialize_dockerimage_from_json() {
+        use serde_json;
+
+        let json = r#""my-registry.local:5000/library/image-name:v1.0.0@sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234""#;
+
+        let image: DockerImage =
+            serde_json::from_str(json).expect("Failed to deserialize DockerImage");
+        assert_eq!(
+            image,
+            DockerImage {
+                registry: Some("my-registry.local:5000".to_string()),
+                name: "library/image-name".to_string(),
+                tag: Some("v1.0.0".to_string()),
+                digest: Some(
+                    "sha256:deadbeefcafe1234567890abcdef1234567890abcdef1234567890abcdef1234".to_string()
+                ),
+            }
         );
     }
 }
