@@ -1,0 +1,21 @@
+[package]
+name = "docker-image-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[dependencies.docker-image]
+path = ".."
+
+[[bin]]
+name = "from_str"
+path = "fuzz_targets/from_str.rs"
+test = false
+doc = false
+bench = false
